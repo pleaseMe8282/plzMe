@@ -1,0 +1,50 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Stack;
+
+public class Solution {
+    public static String solution(String str)throws IOException {
+        String answer="";
+        Stack<Character> stackVPS = new Stack<>();
+        int count = 0;
+        boolean garbage = false;
+        for (int j = 0; j < str.length(); j++) {
+            //stack에 (를 쌓기
+            if('(' == str.charAt(j)) {
+                stackVPS.push('(');
+            }
+            if(')' == str.charAt(j)){
+                count++;
+            }
+        }
+
+        for (int j = 0; j < count; j++) {
+            if(!stackVPS.isEmpty()) {
+                stackVPS.pop();
+            } else {
+                garbage = true;
+            }
+        }
+
+        if(stackVPS.isEmpty() && !garbage){
+            answer="YES";
+            stackVPS.clear();
+        } else {
+            answer="NO";
+            stackVPS.clear();
+        }
+        return answer;
+    }
+    public static void main(String[] args)throws IOException{
+        //입력받기
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+
+        for (int i = 0; i < n; i++) {
+            String str = br.readLine();
+            System.out.println(solution(str));
+        }
+        br.close();
+    }
+}
